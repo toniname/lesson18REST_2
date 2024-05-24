@@ -38,4 +38,12 @@ public class User {
     public String getPasswordHash() {
         return passwordHash;
     }
+
+    public User(String userId, String passwordHash, String name, int age) {
+        this.userId = userId;
+        this.passwordHash = passwordHash;
+        this.name = name;
+        this.age = age;
+        this.notes = notes;
+    }
 }

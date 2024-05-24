@@ -1,10 +1,10 @@
 package com.example.app.notes;
+
 import com.example.app.users.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +37,17 @@ public class Note {
     @Builder.Default
     private LocalDateTime created_at = LocalDateTime.now();
 
+    public Note(long id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
+    public Note(User user, String title, String content) {
+        this.user = user;
+        this.title = title;
+        this.content = content;
+    }
+
     public long getId() {
         return id;
     }
@@ -45,15 +56,14 @@ public class Note {
         return user;
     }
 
-    public String getTitle() {
-        return title;
+
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
-    }
 }

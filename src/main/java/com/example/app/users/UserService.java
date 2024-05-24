@@ -17,10 +17,9 @@ public class UserService {
     public User findByUsername(String username) {
         Optional<User> user = repository.findById(Long.valueOf(username));
 
-        if (user.isEmpty()) {
-            return null;
-        }
-
-        return user.get();
+        return user.orElse(null);
+    }
+    public void saveUser(User user) {
+        repository.save(user);
     }
 }

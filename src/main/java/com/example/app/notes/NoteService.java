@@ -1,7 +1,11 @@
 package com.example.app.notes;
 
-import com.example.app.notes.dto.create.CreateNoteRequest;
-import com.example.app.notes.dto.create.CreateNoteResponse;
+import com.example.app.auth.dto.create.CreateNoteRequest;
+import com.example.app.auth.dto.create.CreateNoteResponse;
+import com.example.app.auth.dto.delete.DeleteNoteResponse;
+import com.example.app.auth.dto.get.GetUserNotesResponse;
+import com.example.app.auth.dto.get.UpdateNoteResponse;
+import com.example.app.auth.dto.update.UpdateNoteRequest;
 import com.example.app.users.User;
 import com.example.app.users.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +37,11 @@ public class NoteService {
 
         User user = userService.findByUsername(username);
 
-        Note createdNote = repository.save(Note.builder()
-                .user(user)
-                .title(request.getTitle())
-                .content(request.getContent())
-                .build());
+        Note createdNote = repository.save(new Note(
+                user,
+                request.getTitle(),
+                request.getContent()
+        ));
 
         return CreateNoteResponse.success(createdNote.getId());
     }
@@ -52,7 +56,7 @@ public class NoteService {
         Optional<Note> optionalNote = repository.findById(request.getId());
 
         if (optionalNote.isEmpty()) {
-            return UpdateNoteResponse.failed(UpdateNoteResponse.Error.invalidNoteId);
+            return UpdateNoteResponse.failed(UpdateNoteResponse.Error.INVALID_NOTE_ID);
         }
 
         Note note = optionalNote.get();
@@ -60,7 +64,7 @@ public class NoteService {
         boolean isNotUserNote = isNotUserNote(username, note);
 
         if (isNotUserNote) {
-            return UpdateNoteResponse.failed(UpdateNoteResponse.Error.insufficientPrivileges);
+            return UpdateNoteResponse.failed(UpdateNoteResponse.Error.INSUFFICIENT_PRIVILEGES);
         }
 
         Optional<UpdateNoteResponse.Error> validationError = validateUpdateFields(request);
@@ -81,7 +85,7 @@ public class NoteService {
         Optional<Note> optionalNote = repository.findById(id);
 
         if (optionalNote.isEmpty()) {
-            return DeleteNoteResponse.failed(DeleteNoteResponse.Error.invalidNoteId);
+            return DeleteNoteResponse.failed(DeleteNoteResponse.Error.INVALID_NOTE_ID);
         }
 
         Note note = optionalNote.get();
@@ -89,7 +93,7 @@ public class NoteService {
         boolean isNotUserNote = isNotUserNote(username, note);
 
         if (isNotUserNote) {
-            return DeleteNoteResponse.failed(DeleteNoteResponse.Error.insufficientPrivileges);
+            return DeleteNoteResponse.failed(DeleteNoteResponse.Error.INSUFFICIENT_PRIVILEGES);
         }
 
         repository.delete(note);
@@ -111,11 +115,11 @@ public class NoteService {
 
     private Optional<UpdateNoteResponse.Error> validateUpdateFields(UpdateNoteRequest request) {
         if (Objects.nonNull(request.getTitle()) && request.getTitle().length() > MAX_TITLE_LENGTH) {
-            return Optional.of(UpdateNoteResponse.Error.invalidTitleLength);
+            return Optional.of(UpdateNoteResponse.Error.INVALID_TITLE_LENGTH);
         }
 
         if (Objects.nonNull(request.getContent()) && request.getContent().length() > MAX_CONTENT_LENGTH) {
-            return Optional.of(UpdateNoteResponse.Error.invalidTitleLength);
+            return Optional.of(UpdateNoteResponse.Error.INVALID_TITLE_LENGTH);
         }
 
         return Optional.empty();

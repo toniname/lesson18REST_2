@@ -1,11 +1,11 @@
 package com.example.app.notes;
 
-import com.example.app.notes.dto.create.CreateNoteRequest;
-import com.example.app.notes.dto.create.CreateNoteResponse;
-import com.example.app.notes.dto.delete.DeleteNoteResponse;
-import com.example.app.notes.dto.get.GetUserNotesResponse;
-import com.example.app.notes.dto.get.UpdateNoteResponse;
-import com.example.app.notes.dto.update.UpdateNoteRequest;
+import com.example.app.auth.dto.create.CreateNoteRequest;
+import com.example.app.auth.dto.create.CreateNoteResponse;
+import com.example.app.auth.dto.delete.DeleteNoteResponse;
+import com.example.app.auth.dto.get.GetUserNotesResponse;
+import com.example.app.auth.dto.get.UpdateNoteResponse;
+import com.example.app.auth.dto.update.UpdateNoteRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
