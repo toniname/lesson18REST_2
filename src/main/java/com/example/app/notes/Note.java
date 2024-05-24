@@ -36,4 +36,24 @@ public class Note {
     @Column(name = "created_at", nullable = false)
     @Builder.Default
     private LocalDateTime created_at = LocalDateTime.now();
+
+    public long getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
 }

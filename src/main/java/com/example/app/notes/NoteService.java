@@ -1,5 +1,7 @@
 package com.example.app.notes;
 
+import com.example.app.notes.dto.create.CreateNoteRequest;
+import com.example.app.notes.dto.create.CreateNoteResponse;
 import com.example.app.users.User;
 import com.example.app.users.UserService;
 import lombok.RequiredArgsConstructor;

@@ -29,4 +29,13 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Note> notes;
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
 }
