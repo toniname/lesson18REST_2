@@ -10,9 +10,9 @@ public class CreateNoteResponse {
     private long createdNoteId;
 
     public enum Error {
-        ok,
-        invalidTitle,
-        invalidContent
+        OK,
+        INVALID_TITLE,
+        INVALID_CONTENT
     }
 
     public CreateNoteResponse(Error error, long createdNoteId) {
@@ -20,24 +20,9 @@ public class CreateNoteResponse {
         this.createdNoteId = createdNoteId;
     }
 
-    public Error getError() {
-        return error;
-    }
-
-    public void setError(Error error) {
-        this.error = error;
-    }
-
-    public long getCreatedNoteId() {
-        return createdNoteId;
-    }
-
-    public void setCreatedNoteId(long createdNoteId) {
-        this.createdNoteId = createdNoteId;
-    }
 
     public static CreateNoteResponse success(long createdNoteId) {
-        return new CreateNoteResponse(Error.ok, createdNoteId);
+        return new CreateNoteResponse(Error.OK, createdNoteId);
     }
 
     public static CreateNoteResponse failed(Error error) {

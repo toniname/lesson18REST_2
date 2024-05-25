@@ -1,12 +1,11 @@
 package com.example.app.auth.dto.get;
 import com.example.app.notes.Note;
-import lombok.Builder;
-import lombok.Data;
+
+
 
 import java.util.List;
 
-@Builder
-@Data
+
 
 public class GetUserNotesResponse {
     private Error error;
