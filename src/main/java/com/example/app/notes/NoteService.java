@@ -20,13 +20,9 @@ public class NoteService {
     private static final int MAX_TITLE_LENGTH = 100;
     private static final int MAX_CONTENT_LENGTH = 1000;
 
-    private final UserService userService;
-    private final NoteRepository repository;
+    private UserService userService;
+    private NoteRepository repository;
 
-    public NoteService(UserService userService, NoteRepository repository) {
-        this.userService = userService;
-        this.repository = repository;
-    }
 
     public CreateNoteResponse create(String username, CreateNoteRequest request) {
         Optional<CreateNoteResponse.Error> validationError = validateCreateFields(request);

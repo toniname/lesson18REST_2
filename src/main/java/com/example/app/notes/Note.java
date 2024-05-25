@@ -37,10 +37,6 @@ public class Note {
     @Builder.Default
     private LocalDateTime created_at = LocalDateTime.now();
 
-    public Note(long id, User user) {
-        this.id = id;
-        this.user = user;
-    }
 
     public Note(User user, String title, String content) {
         this.user = user;

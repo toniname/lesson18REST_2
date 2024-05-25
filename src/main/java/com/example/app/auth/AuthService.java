@@ -22,15 +22,11 @@ public class AuthService {
     private static final int MAX_NAME_LENGTH = 100;
     private static final int MAX_AGE = 100;
 
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
+    private JwtUtil jwtUtil;
 
-    public AuthService(UserService userService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
-    }
+
 
     public RegistrationResponse register(RegistrationRequest request) {
         User existingUser = userService.findByUsername(request.getEmail());
@@ -92,7 +88,7 @@ public class AuthService {
             return Optional.of(RegistrationResponse.Error.invalidName);
         }
 
-        if (Objects.isNull(request.getAge()) || request.getAge() > MAX_AGE) {
+        if (request.getAge() > MAX_AGE) {
             return Optional.of(RegistrationResponse.Error.invalidAge);
         }
 
